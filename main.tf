@@ -1,11 +1,11 @@
 provider "aws" {
-  region = "eu-central-1"
+  region = "us-east-1"
 }
 
-
 module "aws_nobl9" {
-  source         = "./modules/aws/nobl9"
-  s3_bucket_name = "pies-testowy-kolorowy"
+  source = "./modules/aws/nobl9"
+  # s3_bucket_name               = "kolorowy-pies-testowy"
+  role_to_assume_by_nobl9_name = "n9-access"
   tags = {
     "owner" : "jw",
     "purpose" : "testing",
@@ -13,6 +13,9 @@ module "aws_nobl9" {
   }
 }
 
-output "arn" {
-  value = module.aws_nobl9.s3_bucket_arn
+output "bucket_name" {
+  value = module.aws_nobl9.s3_bucket_name
+}
+output "role_arn" {
+  value = module.aws_nobl9.role_to_assume_by_nobl9
 }
