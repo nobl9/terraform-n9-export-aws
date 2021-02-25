@@ -19,3 +19,7 @@ output "bucket_name" {
 output "role_arn" {
   value = module.aws_nobl9.role_to_assume_by_nobl9
 }
+
+output "external_id" {
+  value = module.aws_nobl9.external_id_for_nobl9
+}
