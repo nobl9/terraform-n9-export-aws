@@ -5,9 +5,14 @@ provider "aws" {
 
 module "aws_nobl9" {
   source         = "./modules/aws/nobl9"
-  s3_bucket_name = "pies"
+  s3_bucket_name = "pies-testowy-kolorowy"
+  tags = {
+    "owner" : "jw",
+    "purpose" : "testing",
+    "department" : "dev",
+  }
 }
 
-output "w" {
+output "arn" {
   value = module.aws_nobl9.s3_bucket_arn
 }

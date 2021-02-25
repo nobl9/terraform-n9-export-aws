@@ -14,12 +14,11 @@ data "aws_iam_policy_document" "access_to_s3" {
     effect = "Allow"
     resources = [
       "arn:aws:s3:::${var.s3_bucket_name}",
+      "arn:aws:s3:::${var.s3_bucket_name}/*",
     ]
     actions = [
-      "s3:ListBucket",
       "s3:PutObject",
       "s3:PutObjectAcl",
-      "s3:GetObject",
     ]
   }
 }
@@ -31,4 +30,11 @@ resource "aws_iam_role" "cross_account_assume_role" {
     name   = "write-access-to-s3"
     policy = data.aws_iam_policy_document.access_to_s3.json
   }
+  tags = var.tags
+}
+
+
+resource "aws_s3_bucket" "nobl9_exporer_bucket" {
+  bucket = var.s3_bucket_name
+  tags   = var.tags
 }
