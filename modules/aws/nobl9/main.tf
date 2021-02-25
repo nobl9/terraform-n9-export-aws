@@ -14,6 +14,11 @@ data "aws_iam_policy_document" "access_to_s3" {
       "s3:PutObject",
       "s3:PutObjectAcl",
     ]
+    condition {
+      test     = "StringEquals"
+      variable = "s3:x-amz-acl"
+      values   = ["bucket-owner-full-control"]
+    }
   }
 }
 
