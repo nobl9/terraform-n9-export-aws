@@ -1,0 +1,24 @@
+{
+  "language": "en_US",
+  "dictionaries": [
+    "bash",
+    "companies",
+    "css",
+    "go",
+    "html",
+    "misc",
+    "softwareTerms",
+    "typescript"
+  ],
+  "ignorePaths": [
+    ".vscode/",
+    ".terraform/",
+    "yarn.lock",
+    "*tfstate*"
+  ],
+  "allowCompoundWords": true,
+  "words": [
+    "Nobl9",
+    "tfstate"
+  ]
+}
