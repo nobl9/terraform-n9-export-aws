@@ -11,6 +11,7 @@ module "aws_nobl9" {
     "purpose" : "testing",
     "department" : "dev",
   }
+  external_id_for_role_to_assume_by_nobl9 = "koty"
 }
 
 output "bucket_name" {
