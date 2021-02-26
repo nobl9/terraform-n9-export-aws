@@ -49,7 +49,7 @@ resource "aws_iam_role" "role_to_assume_by_nobl9" {
   name               = var.role_to_assume_by_nobl9_name
   assume_role_policy = data.aws_iam_policy_document.cross_account_assume_role_policy_for_nobl9.json
   inline_policy {
-    name   = "write-access-to-s3"
+    name   = "write-access-to-s3-bucket-${aws_s3_bucket.nobl9_exporter_bucket.bucket}"
     policy = data.aws_iam_policy_document.access_to_s3.json
   }
   tags = var.tags
