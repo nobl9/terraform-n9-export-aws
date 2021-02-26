@@ -4,14 +4,14 @@ provider "aws" {
 
 module "aws_nobl9" {
   source = "./modules/aws/nobl9"
-  # s3_bucket_name               = "kolorowy-pies-testowy"
+  # s3_bucket_name               = "colorful-dog-test"
   role_to_assume_by_nobl9_name = "n9-access"
   tags = {
     "owner" : "jw",
     "purpose" : "testing",
     "department" : "dev",
   }
-  external_id_for_role_to_assume_by_nobl9 = "koty"
+  external_id_for_role_to_assume_by_nobl9 = "cats"
 }
 
 output "bucket_name" {

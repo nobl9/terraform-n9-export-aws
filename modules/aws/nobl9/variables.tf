@@ -1,5 +1,5 @@
 variable "s3_bucket_name" {
-  description = "Name of S3 bucket to create for Nobl9 to export data (if ommited random name will be assigned)"
+  description = "Name of S3 bucket to create for Nobl9 to export data (if omitted random name will be assigned)"
   type        = string
   default     = ""
 }
@@ -11,7 +11,7 @@ variable "tags" {
 }
 
 variable "external_id_for_role_to_assume_by_nobl9" {
-  description = "External ID which Nobl9 needs to know to assume role (if ommited random value will be assigned)"
+  description = "External ID which Nobl9 needs to know to assume role (if omitted random value will be assigned)"
   type        = string
   default     = ""
 }
