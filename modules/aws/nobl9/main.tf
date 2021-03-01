@@ -26,7 +26,7 @@ resource "random_uuid" "default_external_id" {
 }
 
 locals {
-  external_id = var.external_id_for_role_to_assume_by_nobl9 != "" ? var.external_id_for_role_to_assume_by_nobl9 : random_uuid.default_external_id.result
+  external_id = var.external_id_for_iam_role_to_assume_by_nobl9 != "" ? var.external_id_for_iam_role_to_assume_by_nobl9 : random_uuid.default_external_id.result
 }
 
 data "aws_iam_policy_document" "cross_account_assume_role_policy_for_nobl9" {
