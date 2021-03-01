@@ -15,8 +15,8 @@ Terraform uses it to specify subfolders within a Git repo (see module sources). 
 Git tag in this repo. That way, instead of using the latest version of this module from the master branch, which will
 change every time you run Terraform, you're using a fixed version of the repo.
 
-You can find the other parameters in [variables.tf](./variables.tf). Every of them has sensible default overwrite when you
-want to customize naming, tags, etc.
+You can find the other parameters in [variables.tf](./variables.tf). Every of them has sensible default (or random value),
+overwrite when you want to customize naming, tags, etc.
 
 Note the **all outputs** from [outputs.tf](./outputs.tf) has to be passed to [Nobl9 application](http://app.nobl9.com/) during
 creation of export integration to provide access.
