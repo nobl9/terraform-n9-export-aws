@@ -3,9 +3,9 @@ output "s3_bucket_name" {
   value       = module.aws_nobl9.s3_bucket_name
 }
 
-output "role_to_assume_by_nobl9" {
+output "iam_role_to_assume_by_nobl9" {
   description = "ARN of the IAM role for Nobl9 to assume to perform an export of data to the S3 bucket"
-  value       = module.aws_nobl9.role_to_assume_by_nobl9
+  value       = module.aws_nobl9.iam_role_to_assume_by_nobl9
 }
 
 output "external_id_for_nobl9" {

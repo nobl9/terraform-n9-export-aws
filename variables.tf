@@ -16,7 +16,7 @@ variable "external_id_for_role_to_assume_by_nobl9" {
   default     = ""
 }
 
-variable "role_to_assume_by_nobl9_name" {
+variable "iam_role_to_assume_by_nobl9_name" {
   description = "Name of the role which is designed to be assumed by Nobl9 to get access to the previously created S3 bucket"
   type        = string
   default     = "nobl9-exporter"
