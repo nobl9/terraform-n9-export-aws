@@ -11,7 +11,7 @@ deploy exporting data from Nobl9 to chosen cloud provdier's object store and set
 [root folder](./): The root folder is an example of how to use modules to export data from Nobl9 to S3 bucket.
 The Terraform Registry requires the root of every repo to contain Terraform code, so we've put one of the examples there.
 This example is great for learning and experimenting, but for production use, probably more desirable is to use the
-underlying modules in the [modules folder](./modules) directly.
+underlying modules from the [modules folder](./modules) directly.
 
 ## Code included in this Module
 
