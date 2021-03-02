@@ -1,3 +1,8 @@
+variable "external_id_provided_by_nobl9" {
+  description = "External ID provided by Nobl9 to assume the IAM role"
+  type        = string
+}
+
 variable "s3_bucket_name" {
   description = "Name of S3 bucket to create for Nobl9 to export data (if omitted random name will be assigned)"
   type        = string
@@ -8,11 +13,6 @@ variable "tags" {
   description = "Map of tags to assign to the resources created by this module"
   type        = map(string)
   default     = {}
-}
-
-variable "external_id_provided_by_nobl9" {
-  description = "External ID provided by Nobl9 to assume the IAM role"
-  type        = string
 }
 
 variable "iam_role_to_assume_by_nobl9_name" {
