@@ -22,13 +22,6 @@ data "aws_iam_policy_document" "access_to_s3" {
   }
 }
 
-resource "random_uuid" "default_external_id" {
-}
-
-locals {
-  external_id = var.external_id_for_iam_role_to_assume_by_nobl9 != "" ? var.external_id_for_iam_role_to_assume_by_nobl9 : random_uuid.default_external_id.result
-}
-
 data "aws_iam_policy_document" "cross_account_assume_role_policy_for_nobl9" {
   statement {
     effect = "Allow"
@@ -40,7 +33,7 @@ data "aws_iam_policy_document" "cross_account_assume_role_policy_for_nobl9" {
     condition {
       test     = "StringEquals"
       variable = "sts:ExternalId"
-      values   = [local.external_id]
+      values   = [var.external_id_provided_by_nobl9]
     }
   }
 }

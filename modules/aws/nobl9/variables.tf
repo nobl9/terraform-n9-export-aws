@@ -10,10 +10,9 @@ variable "tags" {
   default     = {}
 }
 
-variable "external_id_for_iam_role_to_assume_by_nobl9" {
-  description = "External ID which Nobl9 needs to know to assume the IAM role (if omitted, the random value will be assigned)"
+variable "external_id_provided_by_nobl9" {
+  description = "External ID provided by Nobl9 to assume the IAM role"
   type        = string
-  default     = ""
 }
 
 variable "iam_role_to_assume_by_nobl9_name" {

@@ -7,8 +7,3 @@ output "iam_role_to_assume_by_nobl9" {
   description = "ARN of the IAM role for Nobl9 to assume to perform an export of data to the S3 bucket"
   value       = aws_iam_role.iam_role_to_assume_by_nobl9.arn
 }
-
-output "external_id_for_iam_role_to_assume_by_nobl9" {
-  description = "External ID for Nobl9 to required to assume the IAM role to perform an export of data to the S3 bucket"
-  value       = local.external_id
-}
