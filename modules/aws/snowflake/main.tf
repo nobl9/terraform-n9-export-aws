@@ -37,11 +37,20 @@ data "aws_iam_policy_document" "cross_account_assume_role_policy_for_snowflake" 
 }
 
 resource "aws_iam_role" "iam_role_to_assume_by_snowflake" {
-  name               = var.iam_role_to_assume_by_snowflake_name
+  name               = var.snowflake_iam_role_name
   assume_role_policy = data.aws_iam_policy_document.cross_account_assume_role_policy_for_snowflake.json
   inline_policy {
     name   = "read-access-to-s3-bucket-${var.s3_bucket_name}"
     policy = data.aws_iam_policy_document.access_to_s3.json
   }
   tags = var.tags
+}
+
+resource "aws_s3_bucket_notification" "notification_about_new_file" {
+  bucket = var.s3_bucket_name
+  queue {
+    id        = "notification-to-snowflake-about-new-file"
+    queue_arn = var.snowflake_sqs_notification_arn
+    events    = ["s3:ObjectCreated:*"]
+  }
 }

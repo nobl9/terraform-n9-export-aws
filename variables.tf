@@ -26,3 +26,26 @@ variable "nobl9_aws_account_id" {
   type        = string
   default     = 703270577975
 }
+
+
+# variable "snowflake_storage_aws_iam_user_arn" {
+#   description = "AWS user ARN which Snowflake returns for configured integration"
+#   type        = string
+#   default     = ""
+# }
+
+# variable "snowflake_storage_aws_external_id" {
+#   description = "External ID which Snowflake returns for configured integration"
+#   type        = string
+# }
+
+# variable "snowflake_iam_role_name" {
+#   description = "Name of the role which is designed to be assumed by Snowflake to get access to the previously created S3 bucket"
+#   type        = string
+#   default     = "snowflake-integration"
+# }
+
+# variable "snowflake_sqs_notification_arn" {
+#   description = "ARN of SQS provided by Snowflake to send notifications about new files in the S3 bucket"
+#   type        = string
+# }

@@ -20,8 +20,13 @@ variable "snowflake_storage_aws_external_id" {
   type        = string
 }
 
-variable "iam_role_to_assume_by_snowflake_name" {
+variable "snowflake_iam_role_name" {
   description = "Name of the role which is designed to be assumed by Snowflake to get access to the previously created S3 bucket"
   type        = string
   default     = "snowflake-integration"
+}
+
+variable "snowflake_sqs_notification_arn" {
+  description = "ARN of SQS provided by Snowflake to send notifications about new files in the S3 bucket"
+  type        = string
 }
