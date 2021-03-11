@@ -14,7 +14,8 @@
     ".vscode/",
     ".terraform/",
     "yarn.lock",
-    "*tfstate*"
+    "*tfstate*",
+    "**/node_modules/**"
   ],
   "allowCompoundWords": true,
   "words": [
