@@ -9,13 +9,13 @@ variable "tags" {
   default     = {}
 }
 
-variable "snowflake_STORAGE_AWS_IAM_USER_ARN" {
+variable "snowflake_storage_aws_iam_user_arn" {
   description = "AWS user ARN which Snowflake returns for configured integration"
   type        = string
   default     = ""
 }
 
-variable "snowflake_STORAGE_AWS_EXTERNAL_ID" {
+variable "snowflake_storage_aws_external_id" {
   description = "External ID which Snowflake returns for configured integration"
   type        = string
 }

@@ -25,13 +25,13 @@ data "aws_iam_policy_document" "cross_account_assume_role_policy_for_snowflake" 
     effect = "Allow"
     principals {
       type        = "AWS"
-      identifiers = [var.snowflake_STORAGE_AWS_IAM_USER_ARN]
+      identifiers = [var.snowflake_storage_aws_iam_user_arn]
     }
     actions = ["sts:AssumeRole"]
     condition {
       test     = "StringEquals"
       variable = "sts:ExternalId"
-      values   = [var.snowflake_STORAGE_AWS_IAM_USER_ARN]
+      values   = [var.snowflake_storage_aws_external_id]
     }
   }
 }
@@ -44,8 +44,4 @@ resource "aws_iam_role" "iam_role_to_assume_by_snowflake" {
     policy = data.aws_iam_policy_document.access_to_s3.json
   }
   tags = var.tags
-}
-
-resource "aws_sns_topic" "nobl9_snowpipe_notification" {
-  name = "value"
 }
