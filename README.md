@@ -18,3 +18,6 @@ underlying modules from the [modules folder](./modules) directly.
 ### AWS
 
 - [nobl9](./modules/aws/nobl9): This module creates S3 bucket and IAM role which gives Nobl9 write access to it.
+
+- [snowflake](./modules/aws/snowflake): This module creates gives Snowflake access to an existing S3 bucket and configure
+    notifications for [Snowpipe](https://docs.snowflake.com/en/user-guide/data-load-snowpipe-intro.html).
