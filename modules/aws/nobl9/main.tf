@@ -3,6 +3,14 @@ resource "aws_s3_bucket" "nobl9_exporter_bucket" {
   tags   = var.tags
 }
 
+resource "aws_s3_bucket_public_access_block" "block_all_public_access" {
+  bucket                  = aws_s3_bucket.nobl9_exporter_bucket.id
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+
 data "aws_iam_policy_document" "access_to_s3" {
   statement {
     effect = "Allow"
