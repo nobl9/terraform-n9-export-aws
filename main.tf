@@ -18,10 +18,16 @@ module "aws_nobl9" {
 module "aws_snowflake" {
   source = "./modules/aws/snowflake"
 
-  s3_bucket_name                     = module.aws_nobl9.s3_bucket_name
-  tags                               = var.tags
+  s3_bucket_name = module.aws_nobl9.s3_bucket_name
+  tags           = var.tags
+
+  // desc integration nobl9_s3;
   snowflake_storage_aws_iam_user_arn = var.snowflake_storage_aws_iam_user_arn
   snowflake_storage_aws_external_id  = var.snowflake_storage_aws_external_id
-  snowflake_iam_role_name            = var.snowflake_iam_role_name
-  snowflake_sqs_notification_arn     = var.snowflake_sqs_notification_arn
+
+  // desc pipe nobl9_data_pipe;
+  snowflake_sqs_notification_arn = var.snowflake_sqs_notification_arn
+
+  // Whatever name I want, need to be passed to -> create or replace stage s3_export_stage
+  snowflake_iam_role_name = var.snowflake_iam_role_name
 }
