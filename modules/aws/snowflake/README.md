@@ -1,6 +1,7 @@
 # S3 bucket for Nobl9 to export data
 
-This folder contains a Terraform module that creates S3 bucket and IAM role which gives Nobl9 write access to it.
+This folder contains a Terraform module that creates IAM role, which gives Snowflake read access to S3 bucket specified
+as parameter and configure notifications for Snowpipe.
 
 ```hcl
 module "aws_snowflake" {
