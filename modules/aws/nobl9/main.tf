@@ -18,6 +18,14 @@ resource "aws_s3_bucket_public_access_block" "block_all_public_access" {
   restrict_public_buckets = true
 }
 
+resource "aws_s3_bucket_ownership_controls" "bucket_owner_ownership" {
+  bucket = aws_s3_bucket.nobl9_exporter_bucket.id
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+  depends_on = [aws_s3_bucket_public_access_block.block_all_public_access]
+}
+
 data "aws_iam_policy_document" "access_to_s3" {
   statement {
     effect = "Allow"
