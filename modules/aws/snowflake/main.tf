@@ -47,6 +47,8 @@ resource "aws_iam_role" "iam_role_to_assume_by_snowflake" {
 }
 
 resource "aws_s3_bucket_notification" "notification_about_new_file" {
+  count = var.snowflake_sqs_notification_arn == "" ? 0 : 1
+
   bucket = var.s3_bucket_name
   queue {
     id        = "notification-to-snowflake-about-new-file"

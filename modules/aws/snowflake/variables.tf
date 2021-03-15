@@ -27,6 +27,7 @@ variable "snowflake_iam_role_name" {
 }
 
 variable "snowflake_sqs_notification_arn" {
-  description = "ARN of SQS provided by Snowflake to send notifications about new files in the S3 bucket"
+  description = "ARN of SQS provided by Snowflake to send notifications about new files in the S3 bucket (if omitted notification is not set)"
   type        = string
+  default     = ""
 }
