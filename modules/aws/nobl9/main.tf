@@ -1,6 +1,13 @@
 resource "aws_s3_bucket" "nobl9_exporter_bucket" {
   bucket = var.s3_bucket_name
   tags   = var.tags
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = "AES256"
+      }
+    }
+  }
 }
 
 resource "aws_s3_bucket_public_access_block" "block_all_public_access" {
