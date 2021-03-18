@@ -18,6 +18,7 @@ variable "snowflake_storage_aws_iam_user_arn" {
 variable "snowflake_storage_aws_external_id" {
   description = "External ID which Snowflake returns for configured integration"
   type        = string
+  default     = ""
 }
 
 variable "snowflake_iam_role_name" {
