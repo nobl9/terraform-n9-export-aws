@@ -1,3 +1,8 @@
+variable "aws_region" {
+  description = "AWS region where resources will be created"
+  type        = string
+}
+
 variable "external_id_provided_by_nobl9" {
   description = "External ID provided by Nobl9 to assume the IAM role"
   type        = string

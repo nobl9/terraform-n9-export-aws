@@ -2,7 +2,8 @@ terraform {
   required_version = ">= 0.14.7"
 }
 
-data "aws_region" "current" {
+provider "aws" {
+  region = var.aws_region
 }
 
 module "aws_nobl9" {
@@ -16,7 +17,9 @@ module "aws_nobl9" {
 }
 
 module "aws_snowflake" {
-  source = "./modules/aws/snowflake"
+  source     = "./modules/aws/snowflake"
+  count      = var.snowflake_storage_aws_iam_user_arn == "" || var.snowflake_storage_aws_external_id == "" ? 0 : 1
+  depends_on = [module.aws_nobl9]
 
   s3_bucket_name = module.aws_nobl9.s3_bucket_name
   tags           = var.tags
