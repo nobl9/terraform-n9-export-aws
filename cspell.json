@@ -21,6 +21,8 @@
   "words": [
     "hashicorp",
     "Nobl9",
-    "tfstate"
+    "sloctl",
+    "tfstate",
+    "tfvars"
   ]
 }
