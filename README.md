@@ -48,13 +48,13 @@ Output
 Fill variables in root module for Terraform, for instance create file `input.auto.tfvars` with following content
 
 ```hcl
-aws_region = "<AWS_REGION_WHERE_TO_DEPLOY_RESOURCES>  # Region where Terraform provsion S3 bucket.
+aws_region = "<AWS_REGION_WHERE_TO_DEPLOY_RESOURCES>"  # Region where Terraform provsion S3 bucket.
 external_id_provided_by_nobl9 = "<EXTERNAL_ID_FOR_ORGANIZATION>"  # Previously obtained from Nobl9 external id.
 s3_bucket_name = "<S3_BUCKET_FOR_N9_DATA_NAME>" # Specify desired name for bucket, when omitted random name will be generated.
 
 # Optionally tags to add for every created resource.
 tags = {
-    "key: "value"
+    "key": "value"
 }
 
 # Other available variables.
@@ -64,15 +64,19 @@ tags = {
 iam_role_to_assume_by_nobl9_name = "<NAME_OF_CREATED_ROLE_FOR_N9>"
 ```
 
-Let's apply it and wait for Terraform outputs.
+Firstly initialize a new or existing Terraform working directory by executing
 
-Command
+```bash
+terraform init
+```
+
+next
 
 ```bash
 terraform apply
 ```
 
-Output
+Let's wait for Terraform outputs.
 
 ```bash
 iam_role_to_assume_by_nobl9 = "arn:aws:iam::<AWS_ACCOUNT_ID>:role/<NAME_OF_CREATED_ROLE_FOR_N9>"
