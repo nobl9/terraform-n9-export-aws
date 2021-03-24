@@ -10,8 +10,8 @@ deploy exporting data from Nobl9 to AWS S3 and set up further integration with S
 
 [root folder](./): The root folder is an example of how to use modules to export data from Nobl9 to S3 bucket and set up
 further integration with Snowflake. The Terraform Registry requires the root of every repo to contain Terraform code,
-so we've put one of the examples there. This example is great for typical scenario, learning and experimenting, in case
-of need use the underlying modules from the [modules folder](./modules) directly.
+so we've put one of the examples there. This example is great for the typical scenario, learning and experimenting.
+In case of need for fine-grained control use the underlying modules from the [modules folder](./modules) directly.
 
 ## Code included in this module
 
