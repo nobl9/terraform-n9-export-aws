@@ -29,9 +29,19 @@ for export from Nobl9 to S3 and integration of it with Snowflake. Below there is
 When more sophisticated configuration is required use modules [nobl9](./modules/aws/nobl9) and
 [snowflake](./modules/aws/snowflake) directly.
 
+This module can be imported directly too
+
+```hcl
+module "aws_snowflake" {
+  source = "git::git@github.com:nobl9/export-from-n9-terraform.git"
+}
+```
+
+Parameters needs to be passed as described in below step by step instruction.
+
 ### Export from N9 to S3
 
-Obtain AWS external ID for your organization in Nobl9 App UI or with command line tool - `sloctl`.
+Obtain AWS external ID for your organization in Nobl9 App UI or with s line tool - `sloctl`.
 
 Execute
 
