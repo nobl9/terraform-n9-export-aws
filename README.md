@@ -17,7 +17,7 @@ of need use the underlying modules from the [modules folder](./modules) directly
 
 ### AWS
 
-- [nobl9](./modules/aws/nobl9): This module creates S3 bucket and IAM role which gives Nobl9 app write access to it.
+- [nobl9](./modules/aws/nobl9): This module creates S3 bucket and IAM role, which gives Nobl9 app write access to it.
 
 - [snowflake](./modules/aws/snowflake): This module gives Snowflake access to an existing S3 bucket (for instance
   provisioned with the above module) and configures notifications for [Snowpipe](https://docs.snowflake.com/en/user-guide/data-load-snowpipe-intro.html).
@@ -60,8 +60,8 @@ tags = {
 
 # Other available variables.
 
-# Specify the desired name for the role which gives Nobl9 access to the created bucket
-# when omitted default: nobl9-exporter is used.
+# Specify the desired name for the role, which gives Nobl9 access to the created bucket,
+# when omitted default name: nobl9-exporter is used.
 iam_role_to_assume_by_nobl9_name = "<NAME_OF_CREATED_ROLE_FOR_N9>" # Default is nobl9-exporter.
 ```
 
@@ -87,7 +87,7 @@ s3_bucket_name = "<S3_BUCKET_FOR_N9_DATA_NAME>"
 Copy the above to the configuration of `DataExport` in N9 App (YAML or UI). Every hour content will
 be exported.
 
-Example Nobl9 YAML for Data Export, which can be applied with `sloctl`.
+Example Nobl9 YAML for Data Export, can be applied with `sloctl` or configured with UI.
 
 ```yaml
 apiVersion: n9/v1alpha
@@ -148,10 +148,10 @@ create or replace file format nobl9_csv_format
 
 Create Snowflake integration with S3, fill below with desired values:
 
-- `<AWS_ACCOUNT_ID>` - ID of account where S3 bucket for Nobl9 was created
-- `<SNOWFLAKE_ROLE_NAME>` - the name of the IAM role to be assumed by Snowflake, when not specified by a Terraform configuration
-  default name `snowflake-integration` has to be used
-- `<BUCKET_NAME>` - the name of previously created S3 bucket (from Terreform output)
+- `<AWS_ACCOUNT_ID>` - ID of AWS account where the S3 bucket for Nobl9 was created
+- `<SNOWFLAKE_ROLE_NAME>` - the name of the IAM role to create to be assumed by Snowflake, when omitted
+  in Terraform configuration default name `snowflake-integration` has to be used
+- `<BUCKET_NAME>` - the name of previously created S3 bucket (from Terraform output)
 
 ```sql
 create or replace storage integration nobl9_s3
@@ -162,7 +162,7 @@ create or replace storage integration nobl9_s3
   storage_allowed_locations = ('s3://<BUCKET_NAME>');
 ```
 
-For next step obtain
+For the next step obtain
 
 - `<STORAGE_AWS_IAM_USER_ARN>`
 - `<STORAGE_AWS_EXTERNAL_ID>`
@@ -173,7 +173,7 @@ from Snowflake by executing
 desc integration nobl9_s3;
 ```
 
-Results of above command add to Terraform variables as previous (to file `input.auto.tfvars`)
+Values from output of the above command add to Terraform variables as previous (to file `input.auto.tfvars`)
 
 ```hcl
 snowflake_storage_aws_iam_user_arn = "<STORAGE_AWS_IAM_USER_ARN>"
@@ -181,13 +181,13 @@ snowflake_storage_aws_external_id = "<STORAGE_AWS_EXTERNAL_ID>"
 snowflake_iam_role_name = "<SNOWFLAKE_ROLE_NAME>" # Omit when default name is used.
 ```
 
-next apply it and wait
+next, apply it and wait
 
 ```bash
 terraform apply
 ```
 
-After successful finish, execute below in Snowflake worksheet to setup integration with S3
+After successful finish, execute below in Snowflake worksheet to set up integration with S3
 
 ```sql
 create or replace stage s3_export_stage
@@ -196,7 +196,7 @@ create or replace stage s3_export_stage
   storage_integration = nobl9_s3;
 ```
 
-next start configuring Snowpipe
+next, start configuring Snowpipe
 
 ```sql
 create pipe nobl9_data_pipe auto_ingest=true as
@@ -218,16 +218,16 @@ notification about a new file in S3 will be sent.
 snowflake_sqs_notification_arn = "<notification_channel>"
 ```
 
-Execute apply for the last time
+Execute apply, for the last time
 
 ```bash
 terraform apply
 ```
 
-From now data from every file exported by Nobl9 to dedicated S3 bucket should be available automatically in Snowflake
+From now data from every file exported by Nobl9 to the dedicated S3 bucket should be available automatically in Snowflake
 database `nobl9_slo`.
 
-Example query to execute on data
+An example query to execute on data
 
 ```sql
 select timestamp, good_count, total_count from nobl9_data where
