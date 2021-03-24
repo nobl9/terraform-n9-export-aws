@@ -31,7 +31,7 @@ When more sophisticated configuration is required use modules [nobl9](./modules/
 
 ### Export from N9 to S3
 
-Check AWS external id for your organization in Nobl9 App UI or with command line tool - `sloctl`.
+Obtain AWS external ID for your organization in Nobl9 App UI or with command line tool - `sloctl`.
 
 Execute
 
