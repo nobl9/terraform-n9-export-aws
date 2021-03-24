@@ -241,6 +241,9 @@ In Snowflake worksheet
 
 ```sql
 drop database nobl9_slo;
+```
+
+```sql
 drop storage integration nobl9_s3;
 ```
 
