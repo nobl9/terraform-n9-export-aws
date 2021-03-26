@@ -124,35 +124,39 @@ create database nobl9_slo;
 ```
 
 ```sql
-create or replace table nobl9_data(
-  timestamp datetime,
-  organization string,
-  measurement string,
-  objective string,
-  value double,
-  project string,
-  threshold double,
-  good_count number,
-  total_count number,
-  objective_description string,
-  error_budget_method string,
-  metric_source_name string,
-  threshold_name string,
-  budget_target double,
-  threshold_tag string,
-  service string,
+create or replace table n9_data(
+  timestamp datetime not null,
+  organization string not null,
+  project string not null,
+  measurement string not null,
+  value double not null,
+  time_window_start datetime,
+  time_window_end datetime,
+  slo_name string not null,
+  slo_description string,
+  error_budgeting_method string not null,
+  budget_target double not null,
+  objective_name string,
+  objective_value double,
+  objective_operator string,
+  service string not null,
   service_display_name string,
-  service_description string
+  service_description string,
+  slo_time_window_type string not null,
+  slo_time_window_duration_unit string not null,
+  slo_time_window_duration_count int not null,
+  slo_time_window_start_time timestamp_tz
 );
 ```
 
 ```sql
-create or replace file format nobl9_csv_format
+create or replace file format n9_csv_format
   type = csv
   field_delimiter = ','
   skip_header = 1
   null_if = ('NULL', 'null')
   empty_field_as_null = true
+  field_optionally_enclosed_by = '"'
   compression = gzip;
 ```
 
