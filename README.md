@@ -244,9 +244,16 @@ database `nobl9_slo`.
 An example query to execute on data
 
 ```sql
-select timestamp, good_count, total_count from nobl9_data where
-  objective = 'streaming-latency-slo' // SLO name
-  and measurement = 'counts';
+select distinct
+  service_display_name,
+  service,
+  project,
+  slo_name,
+  objective_name,
+  objective_value,
+  budget_target * 100 as target
+from nobl9_data
+order by service, slo_name;
 ```
 
 ### Deletion of the whole set up
