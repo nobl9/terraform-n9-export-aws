@@ -37,7 +37,7 @@ module "aws_snowflake" {
 }
 ```
 
-Parameters needs to be passed as described in below step by step instruction.
+Parameters need to be passed as described in the below step by step instructions.
 
 ### Export from N9 to S3
 
@@ -124,7 +124,7 @@ create database nobl9_slo;
 ```
 
 ```sql
-create or replace table n9_data(
+create or replace table nobl9_data(
   timestamp datetime not null,
   organization string not null,
   project string not null,
@@ -150,7 +150,7 @@ create or replace table n9_data(
 ```
 
 ```sql
-create or replace file format n9_csv_format
+create or replace file format nobl9_csv_format
   type = csv
   field_delimiter = ','
   skip_header = 1
