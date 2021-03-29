@@ -22,7 +22,7 @@ variable "iam_role_to_assume_by_nobl9_name" {
 }
 
 variable "nobl9_aws_account_id" {
-  description = "Nobl9 AWS account ID which be will be granted access to the S3 bucket"
+  description = "Nobl9 AWS account ID which will be granted access to the S3 bucket"
   type        = string
   default     = 703270577975
 }
