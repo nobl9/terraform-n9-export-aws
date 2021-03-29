@@ -29,7 +29,7 @@ for export from Nobl9 to S3 and integration of it with Snowflake. Below there is
 When more sophisticated configuration is required use modules [nobl9](./modules/aws/nobl9) and
 [snowflake](./modules/aws/snowflake) directly.
 
-This module can be imported directly too
+This module can be imported directly too (it advised pinning a specific version by adding `?ref=<REF>`, e.g. `?ref=0.1.0`).
 
 ```hcl
 module "aws_snowflake" {
@@ -41,7 +41,7 @@ Parameters need to be passed as described in the below step by step instructions
 
 ### Export from N9 to S3
 
-Obtain AWS external ID for your organization in Nobl9 App UI or with s line tool - `sloctl`.
+Obtain AWS external ID for your organization in Nobl9 App UI or with command line tool - `sloctl`.
 
 Execute
 
