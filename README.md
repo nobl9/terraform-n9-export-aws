@@ -94,8 +94,8 @@ iam_role_to_assume_by_nobl9 = "arn:aws:iam::<AWS_ACCOUNT_ID>:role/<NAME_OF_CREAT
 s3_bucket_name = "<S3_BUCKET_FOR_N9_DATA_NAME>"
 ```
 
-Copy the above to the configuration of `DataExport` in N9 App (YAML or UI). Every hour content will
-be exported.
+Copy the above to the configuration of `DataExport` in N9 App (YAML or UI). Data will be exported
+every hour.
 
 Example Nobl9 YAML for Data Export, can be applied with `sloctl` or configured with UI.
 
@@ -117,7 +117,7 @@ Snowflake can automatically pull data from this bucket on every automatic upload
 the database. Steps related to Snowflake have to be performed in its UI.
 
 Create the database, table, and format for Nobl9 data in Snowflake. Some default names (like `nobl9_slo` for database, etc.)
-are used in the below setup. In case of need feel free to use different names.
+are used in the below setup. In case of need, feel free to use different names.
 
 ```sql
 create database nobl9_slo;
@@ -238,7 +238,7 @@ Execute apply, for the last time
 terraform apply
 ```
 
-From now data from every file exported by Nobl9 to the dedicated S3 bucket should be available automatically in Snowflake
+From now on, data from every file exported by Nobl9 to the dedicated S3 bucket should be available automatically in Snowflake
 database `nobl9_slo`.
 
 An example query to execute on data
