@@ -11,7 +11,7 @@ module "aws_snowflake" {
 }
 ```
 
-For the above, it advised pinning to a specific version by adding `?ref=<REF>`, e.g. `?ref=0.1.0`.
+For the above, it is advised pinning to a specific version by adding `?ref=<REF>`, e.g. `?ref=0.1.0`.
 
 Note the following parameters:
 
