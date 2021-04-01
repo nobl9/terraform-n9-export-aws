@@ -1,9 +1,9 @@
 # S3 bucket for Nobl9 to export data
 
 This folder contains a Terraform module that creates IAM role, which gives Snowflake read access to previously existed
-S3 bucket and configure notifications for Snowpipe. Some steps are required to be configured in AWS before Snowflake and
-some before in Snowflake. Hence adding parameters and executing `terraform apply` multiple time is required - steps and usage
-are the same [as described for root module](../../../README.md###Snowflake).
+S3 bucket and configure notifications on file upload for Snowpipe. Some steps are required to be configured in AWS
+before Snowflake and some in Snowflake before AWS. Hence adding parameters and executing `terraform apply` multiple time
+is required - steps and usage are the same [as described for root module](../../../README.md###Snowflake).
 
 ```hcl
 module "aws_snowflake" {
