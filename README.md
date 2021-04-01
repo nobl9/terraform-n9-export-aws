@@ -19,8 +19,8 @@ In case of need for fine-grained control use the underlying modules from the [mo
 
 - [nobl9](./modules/aws/nobl9): This module creates S3 bucket and IAM role, which gives Nobl9 app write access to it.
 
-- [snowflake](./modules/aws/snowflake): This module gives Snowflake access to an existing S3 bucket (for instance
-  provisioned with the above module) and configures notifications for [Snowpipe](https://docs.snowflake.com/en/user-guide/data-load-snowpipe-intro.html).
+- [snowflake](./modules/aws/snowflake): This module creates IAM role which gives Snowflake read access to an existing S3
+  bucket (for instance provisioned with the above module) and configures notifications about file upload for [Snowpipe](https://docs.snowflake.com/en/user-guide/data-load-snowpipe-intro.html).
 
 ## End to end example - set up export to S3 and connect with Snowflake
 
@@ -70,9 +70,9 @@ tags = {
 
 # Other available variables.
 
-# Specify the desired name for the role, which gives Nobl9 access to the created bucket,
+# Specify the desired name for the IAM role, which gives Nobl9 access to the created bucket,
 # when omitted default name: nobl9-exporter is used.
-iam_role_to_assume_by_nobl9_name = "<NAME_OF_CREATED_ROLE_FOR_N9>" # Default is nobl9-exporter.
+iam_role_to_assume_by_nobl9_name = "<NAME_OF_CREATED_ROLE_FOR_N9>"
 ```
 
 Firstly initialize a new or existing Terraform working directory by executing
@@ -95,9 +95,10 @@ s3_bucket_name = "<S3_BUCKET_FOR_N9_DATA_NAME>"
 ```
 
 Copy the above to the configuration of `DataExport` in N9 App (YAML or UI). Data will be exported
-every hour.
+every hour by Nobl9 app to the S3 bucket.
 
-Example Nobl9 YAML for Data Export, can be applied with `sloctl` or configured with UI.
+Example Nobl9 YAML for `DataExport`, can be applied with `sloctl` or configured with UI. Value for
+field `roleArn` can be obtained from Terraform output.
 
 ```yaml
 apiVersion: n9/v1alpha
@@ -163,7 +164,7 @@ create or replace file format nobl9_csv_format
 Create Snowflake integration with S3, fill below with desired values:
 
 - `<AWS_ACCOUNT_ID>` - ID of AWS account where the S3 bucket for Nobl9 was created
-- `<SNOWFLAKE_ROLE_NAME>` - the name of the IAM role to create to be assumed by Snowflake, when omitted
+- `<SNOWFLAKE_ROLE_NAME>` - name of the IAM role to create to be assumed by Snowflake, when omitted
   in Terraform configuration default name `snowflake-integration` has to be used
 - `<BUCKET_NAME>` - the name of previously created S3 bucket (from Terraform output)
 
@@ -192,7 +193,8 @@ Values from output of the above command add to Terraform variables as previous (
 ```hcl
 snowflake_storage_aws_iam_user_arn = "<STORAGE_AWS_IAM_USER_ARN>"
 snowflake_storage_aws_external_id = "<STORAGE_AWS_EXTERNAL_ID>"
-snowflake_iam_role_name = "<SNOWFLAKE_ROLE_NAME>" # Omit when default name is used.
+# Previously referenced in Snowlake configuration, gives access to bucket.
+snowflake_iam_role_name = "<SNOWFLAKE_ROLE_NAME>" # Omit when default name snowflake-integration is used.
 ```
 
 next, apply it and wait
