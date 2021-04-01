@@ -95,7 +95,7 @@ s3_bucket_name = "<S3_BUCKET_FOR_N9_DATA_NAME>"
 ```
 
 Copy the above to the configuration of `DataExport` in N9 App (YAML or UI). Data will be exported
-every hour.
+every hour by Nobl9 app to the S3 bucket.
 
 Example Nobl9 YAML for `DataExport`, can be applied with `sloctl` or configured with UI. Value for
 field `roleArn` can be obtained from Terraform output.
