@@ -107,9 +107,10 @@ metadata:
   name: data-export-s3
   project: default
 spec:
-  s3BucketName: "<S3_BUCKET_FOR_N9_DATA_NAME>"
-  roleArn: "arn:aws:iam::<AWS_ACCOUNT_ID>:role/<NAME_OF_CREATED_ROLE_FOR_N9>"
   exportType: S3
+  spec:
+    bucketName: "<S3_BUCKET_FOR_N9_DATA_NAME>"
+    roleArn: "arn:aws:iam::<AWS_ACCOUNT_ID>:role/<NAME_OF_CREATED_ROLE_FOR_N9>"
 ```
 
 ### Snowflake
