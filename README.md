@@ -5,31 +5,29 @@ object storage and further integration for them using Terraform.
 
 ## How to use this module
 
-[modules](./modules): This folder contains several standalone, reusable, production-grade modules that you can use to
-deploy exporting data from Nobl9 to AWS S3 and set up further integration with Snowflake for it.
+- The [modules](./modules) folder contains several standalone, reusable, production-grade modules that you can use to
+deploy exporting data from Nobl9 to AWS S3 and set up a further integration with Snowflake.
 
-[root folder](./): The root folder is an example of how to use modules to export data from Nobl9 to S3 bucket and set up
-further integration with Snowflake. The Terraform Registry requires the root of every repo to contain Terraform code,
-so we've put one of the examples there. This example is great for the typical scenario, learning and experimenting.
-In case of need for fine-grained control use the underlying modules from the [modules folder](./modules) directly.
+- The [root folder](./) is an example of how to use modules to export data from Nobl9 to S3 bucket and set up
+afurther integration with Snowflake.<br>
+The Terraform Registry requires the root of every repo to contain Terraform code.so we've put one of the examples there. We've included an example in the registry. The example represents a typical scenario for learning and experimenting. Use the underlying modules from the [modules folder](./modules) if you need fine-grained control.
 
 ## Code included in this module
 
 ### AWS
 
-- [nobl9](./modules/aws/nobl9): This module creates S3 bucket and IAM role, which gives Nobl9 app write access to it.
+- The [nobl9](./modules/aws/nobl9) module creates an S3 bucket and IAM role, which gives the Nobl9 app `write` access to it.
 
-- [snowflake](./modules/aws/snowflake): This module creates IAM role which gives Snowflake read access to an existing S3
-  bucket (for instance provisioned with the above module) and configures notifications about file upload for [Snowpipe](https://docs.snowflake.com/en/user-guide/data-load-snowpipe-intro.html).
+- The [snowflake](./modules/aws/snowflake) module creates an IAM role which gives Snowflake `read` access to an existing S3 bucket (for and instance provisioned with the above module) and configures notifications about file upload for [Snowpipe](https://docs.snowflake.com/en/user-guide/data-load-snowpipe-intro.html).
 
-## End to end example - set up export to S3 and connect with Snowflake
+## End-to-end example — set up export to S3 and connect with Snowflake
 
-Root module uses [nobl9](./modules/aws/nobl9) and [snowflake](./modules/aws/snowflake) to provide end to end setup
-for export from Nobl9 to S3 and integration of it with Snowflake. Below there is the manual on how to use it directly.
-When more sophisticated configuration is required use modules [nobl9](./modules/aws/nobl9) and
-[snowflake](./modules/aws/snowflake) directly.
+The root module uses [Nobl9](./modules/aws/nobl9) and [Snowflake](./modules/aws/snowflake) to provide end-to-end setup
+for export from Nobl9 to S3 and integration with Snowflake. The following is a manual on how to use it.
+When a more sophisticated configuration is required use modules [Nobl9](./modules/aws/nobl9) and
+[Snowflake](./modules/aws/snowflake).
 
-This module can be imported directly too (it is advised pinning a specific version by adding `?ref=<REF>`, e.g. `?ref=0.1.0`).
+This module can be imported directly to (it is advised pinning a specific version by adding `?ref=<REF>`, e.g. `?ref=0.1.0`).
 
 ```hcl
 module "aws_snowflake" {
@@ -37,13 +35,13 @@ module "aws_snowflake" {
 }
 ```
 
-Parameters need to be passed as described in the below step by step instructions.
+Parameters must be passed as described in the following step-by-step instructions.
 
 ### Export from N9 to S3
 
-Obtain AWS external ID for your organization in Nobl9 App UI or with command line tool - `sloctl`.
+1. Obtain the AWS external ID for your organization in Nobl9 App UI or with the `sloctl` command-line tool.
 
-Execute
+2. Run the following command:
 
 ```bash
 sloctl get dataexport --aws-external-id
@@ -55,8 +53,8 @@ Output
 <EXTERNAL_ID_FOR_ORGANIZATION>
 ```
 
-Fill variables for Terraform, for instance create file `input.auto.tfvars` in root module
-with following content:
+3. Enter the variables for Terraform.<br>
+   For example, create the file `input.auto.tfvars` in the root module with the following content:
 
 ```hcl
 aws_region = "<AWS_REGION_WHERE_TO_DEPLOY_RESOURCES>"  # Region where Terraform provsion S3 bucket.
@@ -75,7 +73,7 @@ tags = {
 iam_role_to_assume_by_nobl9_name = "<NAME_OF_CREATED_ROLE_FOR_N9>"
 ```
 
-Firstly initialize a new or existing Terraform working directory by executing
+4. Initialize a new or existing Terraform working directory by running the following command:
 
 ```bash
 terraform init
@@ -87,18 +85,18 @@ next
 terraform apply
 ```
 
-wait for Terraform outputs.
+5. Wait for the Terraform outputs.
 
 ```bash
 iam_role_to_assume_by_nobl9 = "arn:aws:iam::<AWS_ACCOUNT_ID>:role/<NAME_OF_CREATED_ROLE_FOR_N9>"
 s3_bucket_name = "<S3_BUCKET_FOR_N9_DATA_NAME>"
 ```
 
-Copy the above to the configuration of `DataExport` in N9 App (YAML or UI). Data will be exported
-every hour by Nobl9 app to the S3 bucket.
+6. Copy the above to the configuration of `DataExport` in the N9 App (YAML or UI). The data is exported
+every hour by the Nobl9 app to the S3 bucket.
 
-Example Nobl9 YAML for `DataExport`, can be applied with `sloctl` or configured with UI. Value for
-field `roleArn` can be obtained from Terraform output.
+The following is an example Nobl9 YAML for `DataExport`, and can be applied with `sloctl` or configured with the UI. The field value for
+`roleArn` is obtained from Terraform output.
 
 ```yaml
 apiVersion: n9/v1alpha
@@ -118,8 +116,8 @@ spec:
 Snowflake can automatically pull data from this bucket on every automatic upload done by N9 and make them available in
 the database. Steps related to Snowflake have to be performed in its UI.
 
-Create the database, table, and format for Nobl9 data in Snowflake. Some default names (like `nobl9_slo` for database, etc.)
-are used in the below setup. In case of need, feel free to use different names.
+1. Create the database, table, and format for Nobl9 data in Snowflake.<br>
+   Default names are used in the following setup (for example, `nobl9_slo` for database, etc.). Feel free to use different names.
 
 ```sql
 create database nobl9_slo;
@@ -162,7 +160,7 @@ create or replace file format nobl9_csv_format
   compression = gzip;
 ```
 
-Create Snowflake integration with S3, fill below with desired values:
+2. Create the Snowflake integration with S3, enter the following with the desired values:
 
 - `<AWS_ACCOUNT_ID>` - ID of AWS account where the S3 bucket for Nobl9 was created
 - `<SNOWFLAKE_ROLE_NAME>` - name of the IAM role to create to be assumed by Snowflake, when omitted
@@ -178,18 +176,13 @@ create or replace storage integration nobl9_s3
   storage_allowed_locations = ('s3://<BUCKET_NAME>');
 ```
 
-For the next step obtain
-
-- `<STORAGE_AWS_IAM_USER_ARN>`
-- `<STORAGE_AWS_EXTERNAL_ID>`
-
-from Snowflake by executing
+3. Obtain the following `<STORAGE_AWS_IAM_USER_ARN>` value and `<STORAGE_AWS_EXTERNAL_ID>` by running
 
 ```sql
 desc integration nobl9_s3;
 ```
 
-Values from output of the above command add to Terraform variables as previous (to file `input.auto.tfvars`)
+4. Add the values from output of the above command to the Terraform variables as previously referenced (to file `input.auto.tfvars`) 
 
 ```hcl
 snowflake_storage_aws_iam_user_arn = "<STORAGE_AWS_IAM_USER_ARN>"
@@ -198,13 +191,13 @@ snowflake_storage_aws_external_id = "<STORAGE_AWS_EXTERNAL_ID>"
 snowflake_iam_role_name = "<SNOWFLAKE_ROLE_NAME>" # Omit when default name snowflake-integration is used.
 ```
 
-next, apply it and wait
+5. Apply the Terraform variables and wait.
 
 ```bash
 terraform apply
 ```
 
-After successful finish, execute below in Snowflake worksheet to set up integration with S3
+6. Run the following in Snowflake worksheet to set up the integration with S3
 
 ```sql
 create or replace stage s3_export_stage
@@ -213,7 +206,7 @@ create or replace stage s3_export_stage
   storage_integration = nobl9_s3;
 ```
 
-next, start configuring Snowpipe
+7. Start configuring Snowpipe
 
 ```sql
 create pipe nobl9_data_pipe auto_ingest=true as
@@ -228,23 +221,23 @@ done correctly.
 desc pipe nobl9_data_pipe;
 ```
 
-Add to Terraform variables as previous (e.g. to file `input.auto.tfvars`) ARN of SQS queue from Snowflake where
+8. Add to Terraform variables as previous (e.g. to file `input.auto.tfvars`) ARN of SQS queue from Snowflake where
 notification about a new file in S3 will be sent.
 
 ```hcl
 snowflake_sqs_notification_arn = "<notification_channel>"
 ```
 
-Execute apply, for the last time
+9. Run the `apply` command for the last time.
 
 ```bash
 terraform apply
 ```
 
-From now on, data from every file exported by Nobl9 to the dedicated S3 bucket should be available automatically in Snowflake
+  From now on, the ata from every file exported by Nobl9 to the dedicated S3 bucket should be available automatically in the Snowflake
 database `nobl9_slo`.
 
-An example query to execute on data
+ - An example query to execute on data:
 
 ```sql
 select distinct
@@ -261,7 +254,7 @@ order by service, slo_name;
 
 ### Deletion of the whole set up
 
-In Snowflake worksheet
+1. In Snowflake worksheet us the following command to delete the set up:
 
 ```sql
 drop database nobl9_slo;
@@ -271,7 +264,7 @@ drop database nobl9_slo;
 drop storage integration nobl9_s3;
 ```
 
-for resources created with Terraform
+2. Resources created with Terraform use the following to delete the set up:
 
 ```bash
 terraform destroy
