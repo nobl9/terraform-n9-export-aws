@@ -24,7 +24,7 @@ change every time you run Terraform, you're using a fixed version of the repo.
 
 `snowflake_storage_aws_iam_user_arn`: Snowflake's AWS user, has to be obtained from Snowflake
 
-`snowflake_storage_aws_external_id`:  AWS external ID from Snowflake, has to be obtained from Snowflake
+`snowflake_storage_aws_external_id`: AWS external ID from Snowflake, has to be obtained from Snowflake
 
 `snowflake_sqs_notification_arn`: ARN of SQS queue where notifications about new files are sent
 

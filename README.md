@@ -75,6 +75,10 @@ Parameters must be passed as described in the following step-by-step instruction
     # Specify the desired name for the IAM role, which gives Nobl9 access to the created bucket,
     # when omitted default name: nobl9-exporter is used.
     iam_role_to_assume_by_nobl9_name = "<NAME_OF_CREATED_ROLE_FOR_N9>"
+
+    # Specify whether all objects should be deleted from the previously created S3 bucket when using terraform destroy.
+    # This will allow to destroy the non-empty S3 bucket without errors, when omitted default value: false is used.
+    s3_bucket_force_destroy = <S3_BUCKET_FOR_N9_FORCE_DESTROY>
     ```
 
 4. Initialize a new or existing Terraform working directory by running the following command:

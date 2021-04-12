@@ -14,6 +14,12 @@ variable "s3_bucket_name" {
   default     = ""
 }
 
+variable "s3_bucket_force_destroy" {
+  description = "Indicates whether all objects should be deleted from the S3 bucket so that the bucket can be destroyed without errors (false if omitted)"
+  type        = bool
+  default     = false
+}
+
 variable "tags" {
   description = "Map of tags to assign to the resources created by this module"
   type        = map(string)
