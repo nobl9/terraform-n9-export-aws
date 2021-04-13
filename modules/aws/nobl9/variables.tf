@@ -10,7 +10,7 @@ variable "s3_bucket_name" {
 }
 
 variable "s3_bucket_force_destroy" {
-  description = "Indicates whether all objects should be deleted from the S3 bucket so that the bucket can be destroyed without errors (false if omitted)"
+  description = "Indicates whether all objects should be deleted from the S3 bucket (on terraform destroy) so that the bucket can be destroyed without errors"
   type        = bool
   default     = false
 }

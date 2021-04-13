@@ -77,7 +77,7 @@ Parameters must be passed as described in the following step-by-step instruction
     iam_role_to_assume_by_nobl9_name = "<NAME_OF_CREATED_ROLE_FOR_N9>"
 
     # Specify whether all objects should be deleted from the previously created S3 bucket when using terraform destroy.
-    # This will allow to destroy the non-empty S3 bucket without errors, when omitted default value: false is used.
+    # This will allow destroying the non-empty S3 bucket without errors, when omitted default value: false is used.
     s3_bucket_force_destroy = <S3_BUCKET_FOR_N9_FORCE_DESTROY>
     ```
 
@@ -263,7 +263,7 @@ order by service, slo_name;
 
 ### Deletion of the whole set up
 
-1. In Snowflake worksheet us the following command to delete the set up:
+1. In Snowflake worksheet use the following command to delete the set up:
 
     ```sql
     drop database nobl9_slo;
@@ -278,5 +278,8 @@ order by service, slo_name;
     ```bash
     terraform destroy
     ```
+
+    Objects in the S3 bucket prevent deletion unless `s3_bucket_force_destroy` variable is set to `true`.
+    This will allow to destroy S3 bucket with its content.
 
 3. The configuration of object DataExport should be deleted in Nobl9 too.
