@@ -10,6 +10,7 @@ module "aws_nobl9" {
   source = "./modules/aws/nobl9"
 
   s3_bucket_name                   = var.s3_bucket_name
+  s3_bucket_force_destroy          = var.s3_bucket_force_destroy
   tags                             = var.tags
   iam_role_to_assume_by_nobl9_name = var.iam_role_to_assume_by_nobl9_name
   external_id_provided_by_nobl9    = var.external_id_provided_by_nobl9
@@ -21,16 +22,10 @@ module "aws_snowflake" {
   count      = var.snowflake_storage_aws_iam_user_arn == "" || var.snowflake_storage_aws_external_id == "" ? 0 : 1
   depends_on = [module.aws_nobl9]
 
-  s3_bucket_name = module.aws_nobl9.s3_bucket_name
-  tags           = var.tags
-
-  // desc integration nobl9_s3;
+  s3_bucket_name                     = module.aws_nobl9.s3_bucket_name
+  tags                               = var.tags
   snowflake_storage_aws_iam_user_arn = var.snowflake_storage_aws_iam_user_arn
   snowflake_storage_aws_external_id  = var.snowflake_storage_aws_external_id
-
-  // desc pipe nobl9_data_pipe;
-  snowflake_sqs_notification_arn = var.snowflake_sqs_notification_arn
-
-  // Whatever name I want, need to be passed to -> create or replace stage s3_export_stage
-  snowflake_iam_role_name = var.snowflake_iam_role_name
+  snowflake_sqs_notification_arn     = var.snowflake_sqs_notification_arn
+  snowflake_iam_role_name            = var.snowflake_iam_role_name
 }

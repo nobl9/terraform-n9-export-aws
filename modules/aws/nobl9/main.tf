@@ -1,6 +1,7 @@
 resource "aws_s3_bucket" "nobl9_exporter_bucket" {
-  bucket = var.s3_bucket_name
-  tags   = var.tags
+  bucket        = var.s3_bucket_name
+  force_destroy = var.s3_bucket_force_destroy
+  tags          = var.tags
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
