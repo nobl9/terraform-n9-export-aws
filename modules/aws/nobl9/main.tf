@@ -8,7 +8,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "encryption_rules"
   bucket = aws_s3_bucket.nobl9_exporter_bucket.bucket
   rule {
     apply_server_side_encryption_by_default {
-      sse_algorithm     = "AES256"
+      sse_algorithm = "AES256"
     }
   }
 }
