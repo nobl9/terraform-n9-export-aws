@@ -27,7 +27,7 @@ jobs:
           make install/checks/spell-and-markdown
 
       - name: Install Terraform CLI
-        uses: hashicorp/setup-terraform@v1.3.2
+        uses: hashicorp/setup-terraform@v1.4.0
         with:
           terraform_version: "~0.14.0"
       - name: Print Terraform version
