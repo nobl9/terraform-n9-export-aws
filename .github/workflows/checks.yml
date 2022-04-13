@@ -11,8 +11,7 @@ jobs:
 
       - name: Set up prerequisites - node and yarn
         uses: actions/setup-node@v3
-        with:
-          node-version: "15.x"
+
       - name: Set up yarn cache
         id: yarn-cache
         run: echo "::set-output name=dir::$(yarn cache dir)"
