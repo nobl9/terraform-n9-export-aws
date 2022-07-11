@@ -154,7 +154,8 @@ the database. Steps related to Snowflake have to be performed in its UI.
       slo_time_window_type string not null,
       slo_time_window_duration_unit string not null,
       slo_time_window_duration_count int not null,
-      slo_time_window_start_time timestamp_tz
+      slo_time_window_start_time timestamp_tz,
+      composite boolean,
     );
     ```
 
