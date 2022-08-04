@@ -80,7 +80,7 @@ Parameters must be passed as described in the following step-by-step instruction
 
     # Specify whether all objects should be deleted from the previously created S3 bucket when using terraform destroy
     # This will allow destroying the non-empty S3 bucket without errors
-    # When omitted, default value "false" is used
+    # When omitted, the default value false is used
     s3_bucket_force_destroy = <S3_BUCKET_FOR_N9_FORCE_DESTROY>
     ```
 
