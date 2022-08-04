@@ -10,8 +10,8 @@ object storage and further integration for them using Terraform.
 
 - The [root folder](./) is an example of how to use modules to export data from Nobl9 to S3 bucket and set up
   a further integration with Snowflake.<br>
-  The Terraform Registry requires the root of every repo to contain Terraform code. Thus we've put one of the examples there.
-  We've included an example in the registry. The example represents a typical scenario for learning and experimenting.
+  The Terraform Registry requires the root of every repo to contain Terraform code. Thus, we've put one of the examples there.
+  The example that represents a typical scenario for learning and experimenting is included in the registry.
   Use the underlying modules from the [modules folder](./modules) if you need fine-grained control.
 
 ## Code included in this module
@@ -19,7 +19,6 @@ object storage and further integration for them using Terraform.
 ### AWS
 
 - The [nobl9](./modules/aws/nobl9) module creates an S3 bucket and IAM role, which gives the Nobl9 app `write` access
-  to it.
 
 - The [snowflake](./modules/aws/snowflake) module creates an IAM role which gives Snowflake `read` access to an existing
   S3 bucket (for an instance provisioned with the above module) and configures notifications about file upload for [Snowpipe](https://docs.snowflake.com/en/user-guide/data-load-snowpipe-intro.html).
@@ -28,10 +27,10 @@ object storage and further integration for them using Terraform.
 
 The root module uses [Nobl9](./modules/aws/nobl9) and [Snowflake](./modules/aws/snowflake) to provide end-to-end setup
 for export from Nobl9 to S3 and integration with Snowflake. The following is a manual on how to use it.
-When a more sophisticated configuration is required use modules [Nobl9](./modules/aws/nobl9) and
+When a more sophisticated configuration is required, use modules [Nobl9](./modules/aws/nobl9) and
 [Snowflake](./modules/aws/snowflake).
 
-This module can be imported directly (it is advised to pin to a specific version by adding `?ref=<REF>`, e.g. `?ref=0.1.0`).
+This module can be imported directly (it is advised to pin to a specific version by adding `?ref=<REF>`, e.g., `?ref=0.1.0`).
 
 ```hcl
 module "aws_snowflake" {
@@ -63,8 +62,8 @@ Parameters must be passed as described in the following step-by-step instruction
     ```hcl
     aws_region = "<AWS_REGION_WHERE_TO_DEPLOY_RESOURCES>"  # Region where Terraform provsion S3 bucket.
     external_id_provided_by_nobl9 = "<EXTERNAL_ID_FOR_ORGANIZATION>"  # Previously obtained from Nobl9 external id.
-    # Specify desired name for bucket that has to be globally unique e.g. n9-exported-data-1234
-    # (do not include s3:// in passed name), when omitted random name will be generated.
+    # Specify the desired name for a bucket that must be globally unique, e.g., n9-exported-data-1234
+    # (do not include s3:// in the passed name); when omitted, a random name will be generated.
     s3_bucket_name = "<S3_BUCKET_FOR_N9_DATA_NAME>"
 
     # Optionally, tags to add for every created resource.
