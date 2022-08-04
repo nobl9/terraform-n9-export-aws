@@ -195,7 +195,7 @@ the database. Steps related to Snowflake have to be performed in its UI.
     desc integration nobl9_s3;
     ```
 
-4. Add the output values of the above command to the Terraform variables as previously referenced to the `input.auto.tfvars` file
+4. Add the output values of the above command to the Terraform variables to the `input.auto.tfvars` file
 
     ```hcl
     snowflake_storage_aws_iam_user_arn = "<STORAGE_AWS_IAM_USER_ARN>"
