@@ -1,12 +1,12 @@
 # Export from Nobl9 module
 
-This repository contains a set of modules in the modules folder for deploying exporting data from the Nobl9 application to
-object storage and further integration for them using Terraform.
+This repository contains a set of Terraform modules in the modules folder for setup a data export from the Nobl9
+application to object storage and further integration.
 
 ## How to use this module
 
 - The [modules](./modules) folder contains several standalone, reusable, production-grade modules that you can use to
-  deploy exporting data from Nobl9 to AWS S3 and set up a further integration with Snowflake.
+  setup a data export from Nobl9 to AWS S3 and set up a further integration with Snowflake.
 
 - The [root folder](./) is an example of how to use modules to export data from Nobl9 to S3 bucket and set up
   a further integration with Snowflake.<br>
