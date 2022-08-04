@@ -43,9 +43,9 @@ Parameters must be passed as described in the following step-by-step instruction
 
 ### Export from N9 to S3
 
-1. Obtain the AWS external ID for your organization in Nobl9 App UI or with the `sloctl` command-line tool.
+1. Obtain the AWS external ID for your organization in Nobl9 UI or with the `sloctl` command-line tool.
 
-2. Run the following command:
+2. Run the following command in `sloctl`:
 
     ```bash
     sloctl get dataexport --aws-external-id
@@ -67,19 +67,21 @@ Parameters must be passed as described in the following step-by-step instruction
     # (do not include s3:// in passed name), when omitted random name will be generated.
     s3_bucket_name = "<S3_BUCKET_FOR_N9_DATA_NAME>"
 
-    # Optionally tags to add for every created resource.
+    # Optionally, tags to add for every created resource.
     tags = {
         "key": "value"
     }
 
     # Other available variables.
 
-    # Specify the desired name for the IAM role, which gives Nobl9 access to the created bucket,
-    # when omitted default name: nobl9-exporter is used.
+    # Specify the desired name for the IAM role, which gives Nobl9 access to the created bucket
+    # when omitted, default name "nobl9-exporter" is used
     iam_role_to_assume_by_nobl9_name = "<NAME_OF_CREATED_ROLE_FOR_N9>"
 
-    # Specify whether all objects should be deleted from the previously created S3 bucket when using terraform destroy.
-    # This will allow destroying the non-empty S3 bucket without errors when omitted default value: false is used.
+    # Specify whether all objects should be deleted from the previously created S3 bucket when using terraform destroy
+    
+    # This will allow destroying the non-empty S3 bucket without errors
+    # When omitted, default value "false" is used
     s3_bucket_force_destroy = <S3_BUCKET_FOR_N9_FORCE_DESTROY>
     ```
 
@@ -105,7 +107,7 @@ Parameters must be passed as described in the following step-by-step instruction
 6. Copy the above to the configuration of `DataExport` in the N9 App with [YAML](https://docs.nobl9.com/yaml-guide?_highlight=dataexport#dataexport)
    configuration. The data is exported every hour by the Nobl9 app to the S3 bucket.
 
-    The following is an example Nobl9 YAML for `DataExport`, and can be applied with `sloctl` or configured with the UI.
+    The following is an example Nobl9 YAML for `DataExport`, and can be applied with `sloctl` or configured in the UI.
     The field value for `roleArn` is obtained from Terraform output.
 
     ```yaml
@@ -172,11 +174,11 @@ the database. Steps related to Snowflake have to be performed in its UI.
       compression = gzip;
     ```
 
-2. Create the Snowflake integration with S3, enter the following with the desired values:
+2. Create the Snowflake integration with S3, and enter the following with the desired values:
 
     - `<AWS_ACCOUNT_ID>` - ID of AWS account where the S3 bucket for Nobl9 was created
     - `<SNOWFLAKE_ROLE_NAME>` - name of the IAM role to create to be assumed by Snowflake, when omitted
-      in Terraform configuration default name `snowflake-integration` has to be used
+      in Terraform configuration, default name `snowflake-integration` must be used
     - `<BUCKET_NAME>` - the name of previously created S3 bucket (from Terraform output)
 
     ```sql
@@ -188,13 +190,13 @@ the database. Steps related to Snowflake have to be performed in its UI.
       storage_allowed_locations = ('s3://<BUCKET_NAME>');
     ```
 
-3. Obtain the following `<STORAGE_AWS_IAM_USER_ARN>` value and `<STORAGE_AWS_EXTERNAL_ID>` by running
+3. Obtain the following `<STORAGE_AWS_IAM_USER_ARN>` value and `<STORAGE_AWS_EXTERNAL_ID>` by running the following command:
 
     ```sql
     desc integration nobl9_s3;
     ```
 
-4. Add the values from output of the above command to the Terraform variables as previously referenced (to file `input.auto.tfvars`)
+4. Add the output values of the above command to the Terraform variables as previously referenced to the `input.auto.tfvars` file
 
     ```hcl
     snowflake_storage_aws_iam_user_arn = "<STORAGE_AWS_IAM_USER_ARN>"
@@ -209,7 +211,7 @@ the database. Steps related to Snowflake have to be performed in its UI.
     terraform apply
     ```
 
-6. Run the following in Snowflake worksheet to set up the integration with S3
+6. Run the following command in Snowflake worksheet to set up the integration with S3:
 
     ```sql
     create or replace stage s3_export_stage
@@ -218,7 +220,7 @@ the database. Steps related to Snowflake have to be performed in its UI.
       storage_integration = nobl9_s3;
     ```
 
-7. Start configuring Snowpipe
+7. Start configuring Snowpipe:
 
     ```sql
     create pipe nobl9_data_pipe auto_ingest=true as
@@ -233,7 +235,7 @@ the database. Steps related to Snowflake have to be performed in its UI.
     desc pipe nobl9_data_pipe;
     ```
 
-8. Add to Terraform variables as previous (e.g. to file `input.auto.tfvars`) ARN of SQS queue from Snowflake where
+8. Add to Terraform variables as previous (e.g., to file `input.auto.tfvars`) ARN of SQS queue from Snowflake where
    notification about a new file in S3 will be sent.
 
     ```hcl
@@ -249,7 +251,7 @@ the database. Steps related to Snowflake have to be performed in its UI.
 From now on, the data from every file exported by Nobl9 to the dedicated S3 bucket should be available automatically in
 the Snowflake database `nobl9_slo`.
 
-- An example query to execute on data
+- The following is an example query to execute on data:
 
     ```sql
     select distinct
@@ -266,7 +268,7 @@ the Snowflake database `nobl9_slo`.
 
 ### Deletion of the whole set up
 
-1. In Snowflake worksheet use the following command to delete the setup
+1. In Snowflake worksheet, use the following command to delete the setup:
 
     ```sql
     drop database nobl9_slo;
@@ -276,7 +278,7 @@ the Snowflake database `nobl9_slo`.
     drop storage integration nobl9_s3;
     ```
 
-2. For resources created with Terraform use the following to delete the setup
+2. For resources created with Terraform, use the following to delete the setup:
 
     ```bash
     terraform destroy
