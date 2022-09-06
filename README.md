@@ -170,6 +170,7 @@ the database. Steps related to Snowflake have to be performed in its UI.
       null_if = ('NULL', 'null')
       empty_field_as_null = true
       field_optionally_enclosed_by = '"'
+      error_on_column_count_mismatch = false
       compression = gzip;
     ```
 
