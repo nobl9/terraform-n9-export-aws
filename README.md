@@ -147,7 +147,7 @@ the database. Steps related to Snowflake have to be performed in its UI.
       slo_description string,
       error_budgeting_method string not null,
       budget_target double not null,
-      objective_name string,
+      objective_display_name string,
       objective_value double,
       objective_operator string,
       service string not null,
@@ -158,6 +158,7 @@ the database. Steps related to Snowflake have to be performed in its UI.
       slo_time_window_duration_count int not null,
       slo_time_window_start_time timestamp_tz,
       composite boolean,
+      objective_name string
     );
     ```
 
@@ -169,6 +170,7 @@ the database. Steps related to Snowflake have to be performed in its UI.
       null_if = ('NULL', 'null')
       empty_field_as_null = true
       field_optionally_enclosed_by = '"'
+      error_on_column_count_mismatch = false
       compression = gzip;
     ```
 
