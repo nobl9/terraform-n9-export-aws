@@ -158,7 +158,8 @@ the database. Steps related to Snowflake have to be performed in its UI.
       slo_time_window_duration_count int not null,
       slo_time_window_start_time timestamp_tz,
       composite boolean,
-      objective_name string
+      objective_name string,
+      slo_labels string
     );
     ```
 
