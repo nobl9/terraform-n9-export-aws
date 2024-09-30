@@ -159,7 +159,8 @@ the database. Steps related to Snowflake have to be performed in its UI.
       slo_time_window_start_time timestamp_tz,
       composite boolean,
       objective_name string,
-      slo_labels string
+      slo_labels string,
+      slo_display_name string
     );
     ```
 
